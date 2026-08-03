@@ -1,0 +1,13 @@
+package com.francescoquarra.gestionale_negozio;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class GestionaleNegozioApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(GestionaleNegozioApplication.class, args);
+	}
+
+}
