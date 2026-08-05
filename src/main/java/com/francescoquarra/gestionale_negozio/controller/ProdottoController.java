@@ -4,6 +4,9 @@ import com.francescoquarra.gestionale_negozio.dto.ProdottoRequest;
 import com.francescoquarra.gestionale_negozio.dto.ProdottoResponse;
 import com.francescoquarra.gestionale_negozio.entity.Prodotto;
 import com.francescoquarra.gestionale_negozio.service.ProdottoService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +58,7 @@ public class ProdottoController {
     }
 
     @PostMapping
-    public ResponseEntity<ProdottoResponse> create(@RequestBody ProdottoRequest request) {
+public ResponseEntity<ProdottoResponse> create(@Valid @RequestBody ProdottoRequest request) {
         Prodotto prodotto = new Prodotto();
         prodotto.setNome(request.getNome());
         prodotto.setPrezzo(request.getPrezzo());
@@ -66,7 +69,7 @@ public class ProdottoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProdottoResponse> update(@PathVariable Long id, @RequestBody ProdottoRequest request) {
+public ResponseEntity<ProdottoResponse> update(@PathVariable Long id, @Valid @RequestBody ProdottoRequest request) {
         Prodotto datiAggiornati = new Prodotto();
         datiAggiornati.setNome(request.getNome());
         datiAggiornati.setPrezzo(request.getPrezzo());

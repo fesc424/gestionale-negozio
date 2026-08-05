@@ -4,6 +4,9 @@ import com.francescoquarra.gestionale_negozio.dto.ClienteRequest;
 import com.francescoquarra.gestionale_negozio.dto.ClienteResponse;
 import com.francescoquarra.gestionale_negozio.entity.Cliente;
 import com.francescoquarra.gestionale_negozio.service.ClienteService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +37,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<ClienteResponse> create(@RequestBody ClienteRequest request) {
+public ResponseEntity<ClienteResponse> create(@Valid @RequestBody ClienteRequest request) {
         Cliente cliente = new Cliente();
         cliente.setNome(request.getNome());
         cliente.setCognome(request.getCognome());
@@ -45,7 +48,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClienteResponse> update(@PathVariable Long id, @RequestBody ClienteRequest request) {
+public ResponseEntity<ClienteResponse> update(@PathVariable Long id, @Valid @RequestBody ClienteRequest request) {
         Cliente datiAggiornati = new Cliente();
         datiAggiornati.setNome(request.getNome());
         datiAggiornati.setCognome(request.getCognome());

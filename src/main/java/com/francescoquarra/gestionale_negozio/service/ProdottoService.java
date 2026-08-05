@@ -2,6 +2,7 @@ package com.francescoquarra.gestionale_negozio.service;
 
 import com.francescoquarra.gestionale_negozio.entity.Categoria;
 import com.francescoquarra.gestionale_negozio.entity.Prodotto;
+import com.francescoquarra.gestionale_negozio.exception.ResourceNotFoundException;
 import com.francescoquarra.gestionale_negozio.repository.CategoriaRepository;
 import com.francescoquarra.gestionale_negozio.repository.ProdottoRepository;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class ProdottoService {
 
     public Prodotto findById(Long id) {
         return prodottoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Prodotto non trovato con id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Prodotto non trovato con id: " + id));
     }
 
     public List<Prodotto> findByCategoria(Long categoriaId) {
@@ -43,7 +44,7 @@ public class ProdottoService {
 
     public Prodotto create(Prodotto prodotto, Long categoriaId) {
         Categoria categoria = categoriaRepository.findById(categoriaId)
-                .orElseThrow(() -> new RuntimeException("Categoria non trovata con id: " + categoriaId));
+                .orElseThrow(() -> new ResourceNotFoundException("Categoria non trovata con id: " + categoriaId));
 
         prodotto.setCategoria(categoria);
         return prodottoRepository.save(prodotto);
@@ -61,7 +62,7 @@ public class ProdottoService {
 
     public void deleteById(Long id) {
         if (!prodottoRepository.existsById(id)) {
-            throw new RuntimeException("Prodotto non trovato con id: " + id);
+            throw new ResourceNotFoundException("Prodotto non trovato con id: " + id);
         }
         prodottoRepository.deleteById(id);
     }

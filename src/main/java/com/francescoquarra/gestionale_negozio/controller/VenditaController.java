@@ -4,6 +4,9 @@ import com.francescoquarra.gestionale_negozio.dto.*;
 import com.francescoquarra.gestionale_negozio.entity.RigaVendita;
 import com.francescoquarra.gestionale_negozio.entity.Vendita;
 import com.francescoquarra.gestionale_negozio.service.VenditaService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +53,7 @@ public class VenditaController {
     }
 
     @PostMapping
-    public ResponseEntity<VenditaResponse> registraVendita(@RequestBody VenditaRequest request) {
+public ResponseEntity<VenditaResponse> registraVendita(@Valid @RequestBody VenditaRequest request) {
 
         List<com.francescoquarra.gestionale_negozio.service.RigaVenditaRequest> richieste = request.getRighe().stream()
                 .map(r -> new com.francescoquarra.gestionale_negozio.service.RigaVenditaRequest(

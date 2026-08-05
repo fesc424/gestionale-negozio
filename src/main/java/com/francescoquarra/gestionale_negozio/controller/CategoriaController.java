@@ -4,6 +4,9 @@ import com.francescoquarra.gestionale_negozio.dto.CategoriaRequest;
 import com.francescoquarra.gestionale_negozio.dto.CategoriaResponse;
 import com.francescoquarra.gestionale_negozio.entity.Categoria;
 import com.francescoquarra.gestionale_negozio.service.CategoriaService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +37,7 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoriaResponse> create(@RequestBody CategoriaRequest request) {
+public ResponseEntity<CategoriaResponse> create(@Valid @RequestBody CategoriaRequest request) {
         Categoria categoria = new Categoria();
         categoria.setNome(request.getNome());
 

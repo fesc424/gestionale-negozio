@@ -1,9 +1,17 @@
 package com.francescoquarra.gestionale_negozio.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public class ClienteRequest {
 
+    @NotBlank(message = "Il nome è obbligatorio")
     private String nome;
+
+    @NotBlank(message = "Il cognome è obbligatorio")
     private String cognome;
+
+    @Email(message = "Formato email non valido")
     private String email;
 
     public ClienteRequest() {

@@ -4,6 +4,8 @@ import com.francescoquarra.gestionale_negozio.entity.Cliente;
 import com.francescoquarra.gestionale_negozio.entity.Prodotto;
 import com.francescoquarra.gestionale_negozio.entity.RigaVendita;
 import com.francescoquarra.gestionale_negozio.entity.Vendita;
+import com.francescoquarra.gestionale_negozio.exception.ResourceNotFoundException;
+import com.francescoquarra.gestionale_negozio.exception.InsufficientStockException;
 import com.francescoquarra.gestionale_negozio.repository.ClienteRepository;
 import com.francescoquarra.gestionale_negozio.repository.ProdottoRepository;
 import com.francescoquarra.gestionale_negozio.repository.VenditaRepository;
@@ -35,7 +37,7 @@ public class VenditaService {
 
     public Vendita findById(Long id) {
         return venditaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Vendita non trovata con id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Vendita non trovata con id: " + id));
     }
 
     public List<Vendita> findByCliente(Long clienteId) {
@@ -50,7 +52,7 @@ public class VenditaService {
     public Vendita registraVendita(Long clienteId, List<RigaVenditaRequest> richieste) {
 
         if (richieste == null || richieste.isEmpty()) {
-            throw new RuntimeException("Una vendita deve contenere almeno una riga");
+            throw new ResourceNotFoundException("Una vendita deve contenere almeno una riga");
         }
 
         Vendita vendita = new Vendita();
@@ -58,7 +60,7 @@ public class VenditaService {
 
         if (clienteId != null) {
             Cliente cliente = clienteRepository.findById(clienteId)
-                    .orElseThrow(() -> new RuntimeException("Cliente non trovato con id: " + clienteId));
+                    .orElseThrow(() -> new ResourceNotFoundException("Cliente non trovato con id: " + clienteId));
             vendita.setCliente(cliente);
         }
 
@@ -67,11 +69,11 @@ public class VenditaService {
         for (RigaVenditaRequest richiesta : richieste) {
 
             Prodotto prodotto = prodottoRepository.findById(richiesta.getProdottoId())
-                    .orElseThrow(() -> new RuntimeException(
+                    .orElseThrow(() -> new ResourceNotFoundException(
                             "Prodotto non trovato con id: " + richiesta.getProdottoId()));
 
             if (prodotto.getQuantitaInStock() < richiesta.getQuantita()) {
-                throw new RuntimeException(
+                throw new InsufficientStockException(
                         "Stock insufficiente per il prodotto '" + prodotto.getNome() +
                         "': disponibili " + prodotto.getQuantitaInStock() +
                         ", richiesti " + richiesta.getQuantita());
