@@ -50,7 +50,7 @@ Controller  →  Service  →  Repository  →  Database
 
 1. Clona il repository
    ```bash
-   git clone https://github.com/fesc424/gestionale-negozio-spring-boot.git
+   git clone https://github.com/fesc424/gestionale-negozio
    cd gestionale-negozio-spring-boot
    ```
 
