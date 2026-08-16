@@ -28,6 +28,6 @@ public class Cliente {
     @Column(unique = true, length = 150)
     private String email;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "cliente", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = false)
     private List<Vendita> vendite = new ArrayList<>();
 }
